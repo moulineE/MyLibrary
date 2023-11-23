@@ -15,6 +15,10 @@ class User(BaseModel, Base):
     last_name = Column(String(128), nullable=False)
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
+    bookmarks = relationship("Bookmark", backref="users",
+                             cascade="all, delete")
+    opened_books = relationship("Opened_book", backref="users",
+                                cascade="all, delete")
 
     def __init__(self, *args, **kwargs):
         """initializes user"""

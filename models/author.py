@@ -2,8 +2,9 @@
 """Author model"""
 import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, DateTime, Integer
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
+
 
 class Author(BaseModel, Base):
     """Author class"""
@@ -11,7 +12,7 @@ class Author(BaseModel, Base):
     first_name = Column(String(128), nullable=False)
     last_name = Column(String(128), nullable=False)
     nb_of_books = Column(Integer, nullable=False, default=0)
-    books = relationship("Book", backref="author")
+    books = relationship("Book", backref="authors", cascade="all, delete")
 
     def __init__(self, *args, **kwargs):
         """initializes author"""

@@ -5,14 +5,6 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Date, Text, Integer, Table
 from sqlalchemy.orm import relationship
 
-book_pages = Table('book_pages', Base.metadata,
-                   Column('book_id', String(60), ForeignKey('books.id'),
-                          nullable=False, primary_key=True),
-                   Column('page_no', Integer,
-                          nullable=False, primary_key=True),
-                   Column('content', Text, nullable=False)
-                   )
-
 
 class Book(BaseModel, Base):
     """Book class"""
@@ -21,6 +13,13 @@ class Book(BaseModel, Base):
     published_date = Column(Date, nullable=False)
     book_summary = Column(Text, nullable=False)
     author_id = Column(String(60), ForeignKey('authors.id'), nullable=False)
+    chapter_count = Column(Integer, nullable=False)
+    bookmarks = relationship("Bookmark", backref="books",
+                             cascade="all,delete")
+    opened_books = relationship("Opened_book", backref="books",
+                                cascade="all, delete")
+    book_pages = relationship("Book_page", backref="books",
+                              cascade="all, delete")
 
     def __init__(self, *args, **kwargs):
         """initializes book"""
