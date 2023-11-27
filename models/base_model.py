@@ -26,11 +26,13 @@ class BaseModel:
                 if key != "__class__":
                     setattr(self, key, value)
             if kwargs.get("created_at", None) and type(self.created_at) is str:
-                self.created_at = datetime.strptime(kwargs["created_at"], time)
+                self.created_at = datetime.strptime(kwargs["created_at"],
+                                                    "%Y-%m-%dT%H:%M:%S.%f")
             else:
                 self.created_at = datetime.utcnow()
             if kwargs.get("updated_at", None) and type(self.updated_at) is str:
-                self.updated_at = datetime.strptime(kwargs["updated_at"], time)
+                self.updated_at = datetime.strptime(kwargs["updated_at"],
+                                                    "%Y-%m-%dT%H:%M:%S.%f")
             else:
                 self.updated_at = datetime.utcnow()
             if kwargs.get("id", None) is None:
@@ -54,3 +56,17 @@ class BaseModel:
     def delete(self):
         """delete the current instance from the storage"""
         models.storage.delete(self)
+
+    def to_dict(self):
+        """returns a dictionary containing all keys/values of an instance"""
+        my_dict = self.__dict__.copy()
+        my_dict["__class__"] = self.__class__.__name__
+        if "created_at" in my_dict:
+            my_dict["created_at"] = (my_dict["created_at"].
+                                     strftime("%Y-%m-%dT%H:%M:%S.%f"))
+        if "updated_at" in my_dict:
+            my_dict["updated_at"] = (my_dict["updated_at"].
+                                     strftime("%Y-%m-%dT%H:%M:%S.%f"))
+        if "_sa_instance_state" in my_dict:
+            del my_dict["_sa_instance_state"]
+        return my_dict
