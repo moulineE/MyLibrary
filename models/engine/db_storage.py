@@ -48,7 +48,7 @@ class DBStorage:
         book = self.pub_get(Book, book_id)
         if book is None:
             return None
-        if page_no < 1 or page_no > book.chapter_count:
+        if int(page_no) < 1 or int(page_no) > book.chapter_count:
             return None
         chapter = self.__session.query(Book_page).filter_by(
             book_id=book_id, page_no=page_no).first()

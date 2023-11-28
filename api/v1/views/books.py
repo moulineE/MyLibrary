@@ -27,3 +27,7 @@ def get_book(book_id):
 @app_views.route('/books/<book_id>/<page>', strict_slashes=False)
 def get_book_page(book_id, page):
     """ retrieves a book page by id and page """
+    chapter = storage.get_chapter(book_id, page)
+    if chapter is None:
+        return jsonify({"error": "Not found"}), 404
+    return jsonify({"content": chapter})
