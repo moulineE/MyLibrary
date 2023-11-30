@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Index """
 from api.v1.views import app_views
-from flask import jsonify
+from flask import jsonify, request
 from models import storage
 
 
@@ -11,6 +11,18 @@ def get_books():
     all_books = storage.all_by_cls("Book")
     list_books = []
     for book in all_books.values():
+        list_books.append(book.to_dict())
+    return jsonify(list_books)
+
+
+@app_views.route('/search', strict_slashes=False)
+def search():
+    q = request.args.get("q")
+    if q is None:
+        return jsonify({"error": "no query"}), 400
+    results = storage.book_search(q)
+    list_books = []
+    for book in results:
         list_books.append(book.to_dict())
     return jsonify(list_books)
 

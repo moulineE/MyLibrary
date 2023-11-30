@@ -54,6 +54,7 @@ class DBStorage:
             book_id=book_id, page_no=page_no).first()
         return chapter.content
 
+
     def new(self, obj):
         """Add the object to the current database session"""
         self.__session.add(obj)
@@ -92,6 +93,12 @@ class DBStorage:
             if value.id == id:
                 return value
         return None
+
+    def book_search(self, q):
+        """search for a book"""
+        objs = (self.__session.query(classes['Book']).order_by(Book.book_title)
+                .filter(Book.book_title.like('%'+q+'%'))).all()
+        return objs
 
     def count(self, cls):
         """count the number of objects in storage"""
