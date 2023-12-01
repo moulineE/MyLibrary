@@ -46,12 +46,24 @@ def all_books():
         list_books.append(book)
     return render_template('index.html', books=list_books)
 
+@app.route('/mylibrary/book', strict_slashes=False)
+def book():
+    page = 1
+    book_id = request.args.get('id')
+    if request.args.get('page'):
+        page = request.args.get('page')
+    page = int(page)
+    if page < 1:
+        page = 1
+    book = storage.pub_get("Book", book_id)
+    author = storage.pub_get("Author", book.author_id)
+    book = book.to_dict()
+    book['author_name'] = "{} {}".format(author.first_name, author.last_name)
+    if page > book['chapter_count']:
+        page = book['chapter_count']
+    chapter = storage.get_chapter(book_id, page)
+    return render_template('book.html', book=book, chapter=chapter, page=page)
 
-"""@app.route('/mylibrary/search', strict_slashes=False)
-def search():
-    results = storage.book_search(request.args.get("q"))
-
-    return jsonify(results)"""
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)

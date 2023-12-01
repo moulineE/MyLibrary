@@ -67,6 +67,9 @@ class BaseModel:
         if "updated_at" in my_dict:
             my_dict["updated_at"] = (my_dict["updated_at"].
                                      strftime("%Y-%m-%dT%H:%M:%S.%f"))
+        if "published_date" in my_dict:
+            my_dict["published_date"] = (my_dict["published_date"].
+                                         strftime("%d-%m-%Y"))
         if "_sa_instance_state" in my_dict:
             del my_dict["_sa_instance_state"]
         return my_dict
