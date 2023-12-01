@@ -42,9 +42,11 @@ def all_books():
     for book in all_books.values():
         author = storage.pub_get("Author", book.author_id)
         book = book.to_dict()
-        book['author_name'] = "{} {}".format(author.first_name, author.last_name)
+        book['author_name'] = ("{} {}"
+                               .format(author.first_name, author.last_name))
         list_books.append(book)
     return render_template('index.html', books=list_books)
+
 
 @app.route('/mylibrary/book', strict_slashes=False)
 def book():

@@ -54,7 +54,6 @@ class DBStorage:
             book_id=book_id, page_no=page_no).first()
         return chapter.content
 
-
     def new(self, obj):
         """Add the object to the current database session"""
         self.__session.add(obj)
@@ -72,7 +71,7 @@ class DBStorage:
         """Create all tables in the database"""
         Base.metadata.create_all(self.__engine)
         sess_factory = sessionmaker(bind=self.__engine,
-                                       expire_on_commit=False)
+                                    expire_on_commit=False)
         Session = scoped_session(sess_factory)
         self.__session = Session
 
