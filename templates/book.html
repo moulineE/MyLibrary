@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="../static/styles/book.css">
     <title>{{ book.book_title }}</title>
 </head>
 <body>
@@ -11,7 +12,7 @@
 </div>
 <h1>{{ book.book_title }}</h1>
 <p>by {{ book.author_name }}</p>
-<p>{{ chapter }}</p>
+<p class="chapter-box">{{ chapter }}</p>
 <footer>
     <p><a href="/mylibrary/book?id={{ book.id }}&page={{ page - 1 }}">prior</a> Page {{ page }} of {{ book.chapter_count }} <a href="/mylibrary/book?id={{ book.id }}&page={{ page + 1 }}">next</a></p>
 </footer>
