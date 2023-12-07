@@ -35,8 +35,8 @@ class DBStorage:
     def all_by_cls(self, cls):
         """Query on the current database session by class name"""
         new_dict = {}
-        for clss in pub_classes:
-            if cls is pub_classes[clss] or cls is clss:
+        for clss in classes:
+            if cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
                     key = obj.__class__.__name__ + '.' + obj.id
@@ -93,6 +93,31 @@ class DBStorage:
                 return value
         return None
 
+    def get_user_by_email(self, email):
+        """
+        Returns the object based on the class name and its ID,
+        or None if not found
+        :param cls:
+        :param id:
+        :return obj or None:
+        """
+        all_cls = models.storage.all_by_cls(User)
+        for value in all_cls.values():
+            if value.email == email:
+                return value
+        return None
+
+    def get_opened_book_by_user_id_and_bookid(self, user_id, book_id):
+        """
+        Return the opened book object based on the user_id and book_id
+        :param book_id:
+        :param user_id:
+        :return:
+        """
+        obj = self.__session.query(Opened_book).filter_by(user_id=user_id, book_id=book_id).first()
+        return obj
+
+
     def book_search(self, q):
         """search for a book"""
         objs = (self.__session.query(classes['Book']).order_by(Book.book_title)
@@ -101,7 +126,7 @@ class DBStorage:
 
     def count(self, cls):
         """count the number of objects in storage"""
-        if cls not in pub_classes.values():
+        if cls not in classes.values():
             return None
         else:
             count = len(models.storage.all_by_cls(cls).values())
