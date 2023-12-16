@@ -1,18 +1,4 @@
 $(document).ready(function () {
-  $('#loginBtn').click(function () {
-    $('#loginModal').show();
-  });
-  $('#registerBtn').click(function () {
-    $('#registerModal').show();
-  });
-  $('.close').click(function () {
-    $(this).parents('.modal').hide();
-  });
-  $(window).click(function (event) {
-    if ($(event.target).hasClass('modal')) {
-      $(event.target).hide();
-    }
-  });
   $(':input').on('input', async function () {
     const input = $(this);
     if (input.val() === '') {

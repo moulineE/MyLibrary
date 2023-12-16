@@ -150,7 +150,6 @@ def book():
         if opened_book:
             # Update opened_book as necessary
             if page == 1 and opened_book.page != 1:
-                chapter = storage.get_chapter(book_id, opened_book.page)
                 return redirect(url_for('book', id=book_id,
                                         page=opened_book.page, ))
             if page > opened_book.page:
