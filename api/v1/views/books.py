@@ -43,3 +43,29 @@ def get_book_page(book_id, page):
     if chapter is None:
         return jsonify({"error": "Not found"}), 404
     return jsonify({"content": chapter})
+
+
+@app_views.route('/bookmarks', methods=['GET', 'POST'])
+def add_bookmark():
+    if request.method == 'GET':
+        user_id = request.args.get('user_id')
+        book_id = request.args.get('book_id')
+        bookmarks = storage.get_bookmarks(user_id, book_id)
+        return jsonify([bookmark.to_dict() for bookmark in bookmarks])
+    else:
+        user_id = request.form['user_id']
+        book_id = request.form['book_id']
+        page = request.form['page']
+        bookmark_name = request.form['bookmark_name']
+        storage.add_bookmark(user_id, book_id, page, bookmark_name)
+        return jsonify({'success': True}), 200
+
+
+@app_views.route('/bookmarks/<string:bookmark_id>', methods=['DELETE'])
+def delete_bookmark(bookmark_id):
+    bookmark = storage.pub_get("Bookmark", bookmark_id)
+    if bookmark is None:
+        return jsonify({"error": "Not found"}), 404
+    storage.delete(bookmark)
+    storage.save()
+    return jsonify({'success': True}), 200

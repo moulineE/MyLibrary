@@ -114,9 +114,33 @@ class DBStorage:
         :param user_id:
         :return:
         """
-        obj = self.__session.query(Opened_book).filter_by(user_id=user_id, book_id=book_id).first()
+        obj = (self.__session.query(Opened_book).
+               filter_by(user_id=user_id, book_id=book_id).first())
         return obj
 
+    def add_bookmark(self, user_id, book_id, page, bookmark_name):
+        """
+        Add a bookmark for a user on a specific page of a book
+        :param user_id:
+        :param book_id:
+        :param page:
+        :param bookmark_name:
+        :return:
+        """
+        new_bookmark = Bookmark(user_id=user_id, book_id=book_id,
+                                page=page, bookmark_name=bookmark_name)
+        self.new(new_bookmark)
+        self.save()
+
+    def get_bookmarks(self, user_id, book_id):
+        """
+        Get bookmarks for a user on a specific book
+         :param user_id:
+         :param book_id:
+         :return: list of Bookmark objects
+        """
+        return (self.__session.query(Bookmark).
+                filter_by(user_id=user_id, book_id=book_id).all())
 
     def book_search(self, q):
         """search for a book"""

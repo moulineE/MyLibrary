@@ -57,3 +57,13 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+#bookmarksContainer {
+    white-space: nowrap;
+}
+
+#bookmarksContainer p {
+    margin: 0;
+    padding: 5px 0;
+    display: inline-block; /* Display each bookmark inline */
+}
