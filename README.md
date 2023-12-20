@@ -1,6 +1,8 @@
 # MyLibrary Project
 
-[MyLibrary site](https://mouline-lab.tech/mylibrary/)
+-[MyLibrary site](https://mouline-lab.tech/mylibrary/)
+
+-[See the projec Blog post](https://medium.com/@elmahdi.mouline/mylibrary-project-a-journey-in-code-26233a9ca015)
 
 ## Introduction
 
