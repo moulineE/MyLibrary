@@ -29,7 +29,7 @@ pip install -r requirements.txt
 set up the databese in the Backup folder by:
 ```bash
 modifiy the create_database_and_user.sql file with your own credentials
-cat create_database_and_user.sql | sudo musql
+cat create_database_and_user.sql | sudo mysql
 sudo mysql < MyLibrary_dev_db.sql
 ```
 5. Run the application:
