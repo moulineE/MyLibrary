@@ -102,8 +102,13 @@ def profile():
     return render_template('profile.html', user=current_user)
 
 
-@app.route('/mylibrary', strict_slashes=False)
-@app.route('/mylibrary/index.html', strict_slashes=False)
+@app.route('/', strict_slashes=False)
+def landing_page():
+    return render_template('landing.html')
+
+
+@app.route('/mylibrary')
+@app.route('/mylibrary/index.html')
 def home_page():
     if current_user.is_authenticated:
         return render_template('index.html', user=current_user)
