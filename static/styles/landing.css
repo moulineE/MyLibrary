@@ -137,3 +137,61 @@ nav {
     background-color: #f0f0f0;
     padding: 20px;
 }
+
+/* For tablets: */
+@media screen and (max-width: 768px) {
+    .header {
+        height: 50vh;
+    }
+    .logo {
+        font-size: 16px;
+    }
+    nav {
+        padding: 20px 90px;
+    }
+    .menu li a {
+        margin: 10px;
+        font-size: 14px;
+    }
+    .text h4 {
+        font-size: 30px;
+    }
+    .text h2 {
+        font-size: 70px;
+    }
+    .text p {
+        font-size: 14px;
+    }
+    .icon i {
+        font-size: 20px;
+    }
+}
+
+/* For mobile phones: */
+@media screen and (max-width: 480px) {
+    .header {
+        height: 30vh;
+    }
+    .logo {
+        font-size: 14px;
+    }
+    nav {
+        padding: 10px 45px;
+    }
+    .menu li a {
+        margin: 5px;
+        font-size: 12px;
+    }
+    .text h4 {
+        font-size: 20px;
+    }
+    .text h2 {
+        font-size: 40px;
+    }
+    .text p {
+        font-size: 12px;
+    }
+    .icon i {
+        font-size: 16px;
+    }
+}
